@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
+  <net active="true" id="TAPN1" type="P/T net">
+    <place displayName="true" id="login" initialMarking="1" invariant="&lt; inf" name="login" nameOffsetX="0" nameOffsetY="0" positionX="360" positionY="390"/>
+    <place displayName="true" id="authorise" initialMarking="0" invariant="&lt; inf" name="authorise" nameOffsetX="0" nameOffsetY="0" positionX="630" positionY="180"/>
+    <place displayName="true" id="access_granted" initialMarking="0" invariant="&lt; inf" name="access_granted" nameOffsetX="55" nameOffsetY="-4" positionX="885" positionY="460"/>
+    <place displayName="true" id="process_command" initialMarking="0" invariant="&lt; inf" name="process_command" nameOffsetX="0" nameOffsetY="0" positionX="1105" positionY="242"/>
+    <place displayName="true" id="check_command" initialMarking="0" invariant="&lt; inf" name="check_command" nameOffsetX="46" nameOffsetY="-5" positionX="863" positionY="600"/>
+    <place displayName="true" id="planting" initialMarking="0" invariant="&lt; inf" name="planting" nameOffsetX="0" nameOffsetY="0" positionX="540" positionY="755"/>
+    <place displayName="true" id="P6" initialMarking="0" invariant="&lt; inf" name="P6" nameOffsetX="0" nameOffsetY="0" positionX="1410" positionY="480"/>
+    <place displayName="true" id="fertilising" initialMarking="0" invariant="&lt; inf" name="fertilising" nameOffsetX="40" nameOffsetY="-4" positionX="897" positionY="738"/>
+    <place displayName="true" id="simplifier" initialMarking="0" invariant="&lt; inf" name="simplifier" nameOffsetX="38" nameOffsetY="-10" positionX="767" positionY="916"/>
+    <transition angle="0" displayName="true" id="T0" infiniteServer="false" name="T0" nameOffsetX="0" nameOffsetY="0" player="0" positionX="570" positionY="390" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="confirm_auth" infiniteServer="false" name="confirm_auth" nameOffsetX="55" nameOffsetY="-10" player="0" positionX="750" positionY="180" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="post_command" infiniteServer="false" name="post_command" nameOffsetX="56" nameOffsetY="-11" player="0" positionX="950" positionY="327" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="processed_command" infiniteServer="false" name="processed_command" nameOffsetX="86" nameOffsetY="-11" player="0" positionX="1225" positionY="460" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="plant" infiniteServer="false" name="plant" nameOffsetX="-6" nameOffsetY="17" player="0" positionX="553" positionY="677" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="fertilise" infiniteServer="false" name="fertilise" nameOffsetX="0" nameOffsetY="0" player="0" positionX="923" positionY="671" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="end_planting" infiniteServer="false" name="end_planting" nameOffsetX="41" nameOffsetY="-1" player="0" positionX="545" positionY="846" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="T9" infiniteServer="false" name="T9" nameOffsetX="0" nameOffsetY="0" player="0" positionX="775" positionY="1007" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="end_fertilising" infiniteServer="false" name="end_fertilising" nameOffsetX="54" nameOffsetY="6" player="0" positionX="895" positionY="810" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="login" target="T0" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="390" yCoord="405"/>
+      <arcpath arcPointType="false" id="1" xCoord="580" yCoord="405"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T0" target="authorise" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="590" yCoord="405"/>
+      <arcpath arcPointType="false" id="1" xCoord="650" yCoord="406"/>
+      <arcpath arcPointType="false" id="2" xCoord="645" yCoord="210"/>
+    </arc>
+    <arc id="A2" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="authorise" target="confirm_auth" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="660" yCoord="195"/>
+      <arcpath arcPointType="false" id="1" xCoord="760" yCoord="191"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="confirm_auth" target="access_granted" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="765" yCoord="210"/>
+      <arcpath arcPointType="false" id="1" xCoord="771" yCoord="397"/>
+      <arcpath arcPointType="false" id="2" xCoord="887" yCoord="467"/>
+    </arc>
+    <arc id="A4" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="access_granted" target="post_command" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="907" yCoord="462"/>
+      <arcpath arcPointType="false" id="1" xCoord="965" yCoord="357"/>
+    </arc>
+    <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="post_command" target="process_command" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="970" yCoord="343"/>
+      <arcpath arcPointType="false" id="1" xCoord="1076" yCoord="435"/>
+      <arcpath arcPointType="false" id="2" xCoord="1117" yCoord="272"/>
+    </arc>
+    <arc id="A6" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="process_command" target="processed_command" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1128" yCoord="270"/>
+      <arcpath arcPointType="false" id="1" xCoord="1241" yCoord="460"/>
+    </arc>
+    <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="processed_command" target="check_command" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="1241" yCoord="490"/>
+      <arcpath arcPointType="false" id="1" xCoord="1184" yCoord="578"/>
+      <arcpath arcPointType="false" id="2" xCoord="893" yCoord="614"/>
+    </arc>
+    <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="check_command" target="plant" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="864" yCoord="619"/>
+      <arcpath arcPointType="false" id="1" xCoord="583" yCoord="693"/>
+    </arc>
+    <arc id="A9" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="check_command" target="fertilise" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="887" yCoord="626"/>
+      <arcpath arcPointType="false" id="1" xCoord="932" yCoord="681"/>
+    </arc>
+    <arc id="A10" inscription="1" nameOffsetX="0" nameOffsetY="0" source="plant" target="planting" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="567" yCoord="697"/>
+      <arcpath arcPointType="false" id="1" xCoord="557" yCoord="755"/>
+    </arc>
+    <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="planting" target="end_planting" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="555" yCoord="785"/>
+      <arcpath arcPointType="false" id="1" xCoord="555" yCoord="856"/>
+    </arc>
+    <arc id="A12" inscription="1" nameOffsetX="0" nameOffsetY="0" source="fertilise" target="fertilising" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="937" yCoord="691"/>
+      <arcpath arcPointType="false" id="1" xCoord="918" yCoord="739"/>
+    </arc>
+    <arc id="A13" inscription="1" nameOffsetX="0" nameOffsetY="0" source="end_planting" target="simplifier" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="575" yCoord="862"/>
+      <arcpath arcPointType="false" id="1" xCoord="768" yCoord="926"/>
+    </arc>
+    <arc id="A14" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="simplifier" target="T9" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="783" yCoord="946"/>
+      <arcpath arcPointType="false" id="1" xCoord="782" yCoord="1016"/>
+    </arc>
+    <arc id="A16" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T9" target="access_granted" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="775" yCoord="1023"/>
+      <arcpath arcPointType="false" id="1" xCoord="355" yCoord="989"/>
+      <arcpath arcPointType="false" id="2" xCoord="455" yCoord="568"/>
+      <arcpath arcPointType="false" id="3" xCoord="885" yCoord="478"/>
+    </arc>
+    <arc id="A17" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="fertilising" target="end_fertilising" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="911" yCoord="768"/>
+      <arcpath arcPointType="false" id="1" xCoord="905" yCoord="820"/>
+    </arc>
+    <arc id="A18" inscription="1" nameOffsetX="0" nameOffsetY="0" source="end_fertilising" target="simplifier" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="910" yCoord="830"/>
+      <arcpath arcPointType="false" id="1" xCoord="794" yCoord="922"/>
+    </arc>
+  </net>
+  <k-bound bound="3"/>
+  <feature isGame="false" isTimed="false"/>
+</pnml>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<pnml xmlns="http://www.informatik.hu-berlin.de/top/pnml/ptNetb">
+  <shared-place initialMarking="0" invariant="&lt; inf" name="login"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="P1"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="authorised"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="command_queue"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="processed_command"/>
+  <shared-place initialMarking="0" invariant="&lt; inf" name="done"/>
+  <shared-transition name="sign_in" player="0" urgent="false"/>
+  <net active="true" id="tractor" type="P/T net">
+    <place displayName="true" id="processed_command" initialMarking="0" invariant="&lt; inf" name="processed_command" nameOffsetX="46" nameOffsetY="-5" positionX="383" positionY="60"/>
+    <place displayName="true" id="planting" initialMarking="0" invariant="&lt; inf" name="planting" nameOffsetX="0" nameOffsetY="0" positionX="240" positionY="335"/>
+    <place displayName="true" id="fertilising" initialMarking="0" invariant="&lt; inf" name="fertilising" nameOffsetX="40" nameOffsetY="-4" positionX="597" positionY="318"/>
+    <place displayName="true" id="simplifier" initialMarking="0" invariant="&lt; inf" name="simplifier" nameOffsetX="38" nameOffsetY="-10" positionX="467" positionY="496"/>
+    <place displayName="true" id="done" initialMarking="0" invariant="&lt; inf" name="done" nameOffsetX="0" nameOffsetY="0" positionX="465" positionY="675"/>
+    <transition angle="90" displayName="true" id="plant" infiniteServer="false" name="plant" nameOffsetX="-6" nameOffsetY="17" player="0" positionX="253" positionY="257" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="fertilise" infiniteServer="false" name="fertilise" nameOffsetX="0" nameOffsetY="0" player="0" positionX="623" positionY="251" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="end_planting" infiniteServer="false" name="end_planting" nameOffsetX="41" nameOffsetY="-1" player="0" positionX="245" positionY="426" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="T9" infiniteServer="false" name="T9" nameOffsetX="0" nameOffsetY="0" player="0" positionX="475" positionY="587" priority="0" urgent="false"/>
+    <transition angle="90" displayName="true" id="end_fertilising" infiniteServer="false" name="end_fertilising" nameOffsetX="54" nameOffsetY="6" player="0" positionX="595" positionY="405" priority="0" urgent="false"/>
+    <arc id="A8" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="processed_command" target="plant" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="389" yCoord="87"/>
+      <arcpath arcPointType="false" id="1" xCoord="267" yCoord="266"/>
+    </arc>
+    <arc id="A9" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="processed_command" target="fertilise" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="409" yCoord="84"/>
+      <arcpath arcPointType="false" id="1" xCoord="637" yCoord="260"/>
+    </arc>
+    <arc id="A10" inscription="1" nameOffsetX="0" nameOffsetY="0" source="plant" target="planting" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="267" yCoord="276"/>
+      <arcpath arcPointType="false" id="1" xCoord="257" yCoord="335"/>
+    </arc>
+    <arc id="A11" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="planting" target="end_planting" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="255" yCoord="364"/>
+      <arcpath arcPointType="false" id="1" xCoord="259" yCoord="435"/>
+    </arc>
+    <arc id="A12" inscription="1" nameOffsetX="0" nameOffsetY="0" source="fertilise" target="fertilising" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="637" yCoord="270"/>
+      <arcpath arcPointType="false" id="1" xCoord="617" yCoord="319"/>
+    </arc>
+    <arc id="A13" inscription="1" nameOffsetX="0" nameOffsetY="0" source="end_planting" target="simplifier" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="274" yCoord="441"/>
+      <arcpath arcPointType="false" id="1" xCoord="467" yCoord="506"/>
+    </arc>
+    <arc id="A14" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="simplifier" target="T9" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="483" yCoord="525"/>
+      <arcpath arcPointType="false" id="1" xCoord="489" yCoord="596"/>
+    </arc>
+    <arc id="A17" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="fertilising" target="end_fertilising" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="611" yCoord="347"/>
+      <arcpath arcPointType="false" id="1" xCoord="609" yCoord="414"/>
+    </arc>
+    <arc id="A18" inscription="1" nameOffsetX="0" nameOffsetY="0" source="end_fertilising" target="simplifier" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="609" yCoord="424"/>
+      <arcpath arcPointType="false" id="1" xCoord="494" yCoord="502"/>
+    </arc>
+    <arc id="A15" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T9" target="done" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="489" yCoord="606"/>
+      <arcpath arcPointType="false" id="1" xCoord="481" yCoord="675"/>
+    </arc>
+  </net>
+  <net active="true" id="command_centre" type="P/T net">
+    <place displayName="true" id="login" initialMarking="0" invariant="&lt; inf" name="login" nameOffsetX="15" nameOffsetY="-8" positionX="35" positionY="120"/>
+    <place displayName="true" id="authorised" initialMarking="0" invariant="&lt; inf" name="authorised" nameOffsetX="0" nameOffsetY="0" positionX="245" positionY="270"/>
+    <place displayName="true" id="command_queue" initialMarking="0" invariant="&lt; inf" name="command_queue" nameOffsetX="0" nameOffsetY="0" positionX="395" positionY="300"/>
+    <place displayName="true" id="processed_command" initialMarking="0" invariant="&lt; inf" name="processed_command" nameOffsetX="74" nameOffsetY="-3" positionX="710" positionY="240"/>
+    <place displayName="true" id="done" initialMarking="0" invariant="&lt; inf" name="done" nameOffsetX="0" nameOffsetY="0" positionX="725" positionY="375"/>
+    <transition angle="0" displayName="true" id="authorise" infiniteServer="false" name="authorise" nameOffsetX="0" nameOffsetY="0" player="0" positionX="65" positionY="255" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="process_command" infiniteServer="false" name="process_command" nameOffsetX="0" nameOffsetY="0" player="0" positionX="590" positionY="270" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T1" infiniteServer="false" name="T1" nameOffsetX="0" nameOffsetY="0" player="0" positionX="815" positionY="270" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="login" target="authorise" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="57" yCoord="153"/>
+      <arcpath arcPointType="false" id="1" xCoord="84" yCoord="259"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="authorise" target="authorised" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="88" yCoord="274"/>
+      <arcpath arcPointType="false" id="1" xCoord="249" yCoord="287"/>
+    </arc>
+    <arc id="A2" inscription="[0,10]" nameOffsetX="0" nameOffsetY="0" source="command_queue" target="process_command" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="428" yCoord="316"/>
+      <arcpath arcPointType="false" id="1" xCoord="603" yCoord="289"/>
+    </arc>
+    <arc id="A3" inscription="1" nameOffsetX="0" nameOffsetY="0" source="process_command" target="processed_command" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="613" yCoord="289"/>
+      <arcpath arcPointType="false" id="1" xCoord="714" yCoord="262"/>
+    </arc>
+    <arc id="A4" inscription="[0,5]" nameOffsetX="0" nameOffsetY="0" source="done" target="T1" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="753" yCoord="382"/>
+      <arcpath arcPointType="false" id="1" xCoord="828" yCoord="294"/>
+    </arc>
+    <arc id="I5" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="processed_command" target="T1" type="tapnInhibitor" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="743" yCoord="262"/>
+      <arcpath arcPointType="false" id="1" xCoord="829" yCoord="284"/>
+    </arc>
+    <arc id="A6" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T1" target="command_queue" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="838" yCoord="289"/>
+      <arcpath arcPointType="false" id="1" xCoord="968" yCoord="314"/>
+      <arcpath arcPointType="false" id="2" xCoord="954" yCoord="127"/>
+      <arcpath arcPointType="false" id="3" xCoord="417" yCoord="133"/>
+      <arcpath arcPointType="false" id="4" xCoord="414" yCoord="304"/>
+    </arc>
+  </net>
+  <net active="true" id="operator" type="P/T net">
+    <place displayName="true" id="init" initialMarking="1" invariant="&lt; inf" name="init" nameOffsetX="0" nameOffsetY="0" positionX="50" positionY="270"/>
+    <place displayName="true" id="waiting" initialMarking="0" invariant="&lt; inf" name="waiting" nameOffsetX="0" nameOffsetY="0" positionX="365" positionY="255"/>
+    <place displayName="true" id="login" initialMarking="0" invariant="&lt; inf" name="login" nameOffsetX="0" nameOffsetY="0" positionX="290" positionY="150"/>
+    <place displayName="false" id="authorised" initialMarking="0" invariant="&lt; inf" name="authorised" nameOffsetX="0" nameOffsetY="0" positionX="440" positionY="135"/>
+    <place displayName="true" id="input_commans" initialMarking="0" invariant="&lt; inf" name="input_commans" nameOffsetX="0" nameOffsetY="0" positionX="695" positionY="240"/>
+    <place displayName="true" id="command_queue" initialMarking="0" invariant="&lt; inf" name="command_queue" nameOffsetX="0" nameOffsetY="0" positionX="935" positionY="135"/>
+    <place displayName="true" id="done" initialMarking="0" invariant="&lt; inf" name="done" nameOffsetX="0" nameOffsetY="0" positionX="635" positionY="600"/>
+    <place displayName="true" id="signed_out" initialMarking="0" invariant="&lt; inf" name="signed_out" nameOffsetX="0" nameOffsetY="0" positionX="245" positionY="660"/>
+    <transition angle="0" displayName="true" id="T0" infiniteServer="false" name="T0" nameOffsetX="0" nameOffsetY="0" player="0" positionX="200" positionY="255" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="access_granted" infiniteServer="false" name="access_granted" nameOffsetX="0" nameOffsetY="0" player="0" positionX="560" positionY="255" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="post_command" infiniteServer="false" name="post_command" nameOffsetX="49" nameOffsetY="-13" player="0" positionX="845" positionY="255" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="sign_out" infiniteServer="false" name="sign_out" nameOffsetX="0" nameOffsetY="0" player="0" positionX="410" positionY="660" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T6" infiniteServer="false" name="T6" nameOffsetX="0" nameOffsetY="0" player="0" positionX="665" positionY="435" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T7" infiniteServer="false" name="T7" nameOffsetX="0" nameOffsetY="0" player="0" positionX="320" positionY="390" priority="0" urgent="false"/>
+    <transition angle="0" displayName="true" id="T8" infiniteServer="false" name="T8" nameOffsetX="0" nameOffsetY="0" player="0" positionX="165" positionY="480" priority="0" urgent="false"/>
+    <arc id="A0" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="init" target="T0" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="83" yCoord="287"/>
+      <arcpath arcPointType="false" id="1" xCoord="213" yCoord="274"/>
+    </arc>
+    <arc id="A1" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T0" target="waiting" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="223" yCoord="274"/>
+      <arcpath arcPointType="false" id="1" xCoord="369" yCoord="274"/>
+    </arc>
+    <arc id="A2" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T0" target="login" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="223" yCoord="274"/>
+      <arcpath arcPointType="false" id="1" xCoord="299" yCoord="180"/>
+    </arc>
+    <arc id="A3" inscription="[0,5]" nameOffsetX="0" nameOffsetY="0" source="waiting" target="access_granted" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="398" yCoord="274"/>
+      <arcpath arcPointType="false" id="1" xCoord="573" yCoord="279"/>
+    </arc>
+    <arc id="A4" inscription="[0,5]" nameOffsetX="0" nameOffsetY="0" source="authorised" target="access_granted" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="469" yCoord="164"/>
+      <arcpath arcPointType="false" id="1" xCoord="574" yCoord="269"/>
+    </arc>
+    <arc id="A5" inscription="1" nameOffsetX="0" nameOffsetY="0" source="access_granted" target="input_commans" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="583" yCoord="274"/>
+      <arcpath arcPointType="false" id="1" xCoord="699" yCoord="260"/>
+    </arc>
+    <arc id="A6" inscription="[0,3]" nameOffsetX="0" nameOffsetY="0" source="input_commans" target="post_command" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="728" yCoord="260"/>
+      <arcpath arcPointType="false" id="1" xCoord="858" yCoord="274"/>
+    </arc>
+    <arc id="A7" inscription="1" nameOffsetX="0" nameOffsetY="0" source="post_command" target="command_queue" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="868" yCoord="274"/>
+      <arcpath arcPointType="false" id="1" xCoord="945" yCoord="166"/>
+    </arc>
+    <arc id="A11" inscription="[0,10]" nameOffsetX="0" nameOffsetY="0" source="done" target="sign_out" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="639" yCoord="622"/>
+      <arcpath arcPointType="false" id="1" xCoord="433" yCoord="679"/>
+    </arc>
+    <arc id="A9" inscription="[0,5]" nameOffsetX="0" nameOffsetY="0" source="done" target="T6" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="656" yCoord="604"/>
+      <arcpath arcPointType="false" id="1" xCoord="684" yCoord="469"/>
+    </arc>
+    <arc id="A10" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T6" target="input_commans" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="684" yCoord="439"/>
+      <arcpath arcPointType="false" id="1" xCoord="711" yCoord="273"/>
+    </arc>
+    <arc id="A12" inscription="1" nameOffsetX="0" nameOffsetY="0" source="sign_out" target="signed_out" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="423" yCoord="679"/>
+      <arcpath arcPointType="false" id="1" xCoord="279" yCoord="679"/>
+    </arc>
+    <arc id="A13" inscription="[6,inf)" nameOffsetX="0" nameOffsetY="0" source="waiting" target="T7" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="378" yCoord="288"/>
+      <arcpath arcPointType="false" id="1" xCoord="339" yCoord="394"/>
+    </arc>
+    <arc id="A14" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T7" target="signed_out" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="339" yCoord="424"/>
+      <arcpath arcPointType="false" id="1" xCoord="268" yCoord="664"/>
+    </arc>
+    <arc id="A15" inscription="[0,inf)" nameOffsetX="0" nameOffsetY="0" source="signed_out" target="T8" type="timed" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="257" yCoord="665"/>
+      <arcpath arcPointType="false" id="1" xCoord="181" yCoord="513"/>
+      <arcpath arcPointType="false" id="2" xCoord="184" yCoord="514"/>
+    </arc>
+    <arc id="A16" inscription="1" nameOffsetX="0" nameOffsetY="0" source="T8" target="init" type="normal" weight="1">
+      <arcpath arcPointType="false" id="0" xCoord="184" yCoord="484"/>
+      <arcpath arcPointType="false" id="1" xCoord="76" yCoord="301"/>
+    </arc>
+  </net>
+  <query active="true" approximationDenominator="2" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="null" gcd="false" hashTableSize="null" inclusionPlaces="*NONE*" name="avoid fertilising" overApproximation="false" pTrie="false" query="EG tractor.fertilising = 0" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="DFS" symmetry="false" timeDarts="false" traceOption="NONE" useStubbornReduction="false" useTarOption="false"/>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="1" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Reachability test" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="false">
+    <formula>
+            
+      <exists-path>
+                
+        <finally>
+                    
+          <disjunction>
+                        
+            <integer-eq>
+                            
+              <tokens-count>
+                                
+                <place>operator.signed_out</place>
+                              
+              </tokens-count>
+                            
+              <integer-constant>1</integer-constant>
+                          
+            </integer-eq>
+                        
+            <disjunction>
+                            
+              <integer-eq>
+                                
+                <tokens-count>
+                                    
+                  <place>operator.signed_out</place>
+                                  
+                </tokens-count>
+                                
+                <integer-constant>1</integer-constant>
+                              
+              </integer-eq>
+                            
+              <integer-eq>
+                                
+                <tokens-count>
+                                    
+                  <place>operator.input_commans</place>
+                                  
+                </tokens-count>
+                                
+                <integer-constant>1</integer-constant>
+                              
+              </integer-eq>
+                            
+              <integer-eq>
+                                
+                <tokens-count>
+                                    
+                  <place>done</place>
+                                  
+                </tokens-count>
+                                
+                <integer-constant>1</integer-constant>
+                              
+              </integer-eq>
+                          
+            </disjunction>
+                      
+          </disjunction>
+                  
+        </finally>
+              
+      </exists-path>
+          
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="&gt;=0 tokens in processed command" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="false">
+    <formula>
+            
+      <all-paths>
+                
+        <globally>
+                    
+          <integer-ge>
+                        
+            <tokens-count>
+                            
+              <place>processed_command</place>
+                          
+            </tokens-count>
+                        
+            <integer-constant>0</integer-constant>
+                      
+          </integer-ge>
+                  
+        </globally>
+              
+      </all-paths>
+          
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="access granted can fire" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="SOME" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="false">
+    <formula>
+            
+      <exists-path>
+                
+        <finally>
+                    
+          <is-fireable>
+                        
+            <transition>operator.access_granted</transition>
+                      
+          </is-fireable>
+                  
+        </finally>
+              
+      </exists-path>
+          
+    </formula>
+  </query>
+  <query active="true" algorithmOption="CERTAIN_ZERO" approximationDenominator="0" capacity="13" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="token !&gt;1" overApproximation="false" pTrie="false" reduction="true" reductionOption="VerifyPN" searchOption="HEURISTIC" symmetry="false" timeDarts="false" traceOption="NONE" type="CTL" useQueryReduction="true" useSiphonTrapAnalysis="false" useStubbornReduction="true" useTarOption="false" useTarjan="false">
+    <formula>
+            
+      <all-paths>
+                
+        <globally>
+                    
+          <negation>
+                        
+            <integer-gt>
+                            
+              <tokens-count>
+                                
+                <place>tractor.planting</place>
+                              
+              </tokens-count>
+                            
+              <integer-constant>1</integer-constant>
+                          
+            </integer-gt>
+                      
+          </negation>
+                  
+        </globally>
+              
+      </all-paths>
+          
+    </formula>
+  </query>
+  <query active="true" approximationDenominator="2" capacity="4" discreteInclusion="false" enableOverApproximation="false" enableUnderApproximation="false" extrapolationOption="AUTOMATIC" gcd="false" hashTableSize="MB_16" inclusionPlaces="*NONE*" name="Query Comment/Name Here" overApproximation="false" pTrie="true" query="AG !(deadlock)" reduction="true" reductionOption="VerifyTAPNdiscreteVerification" searchOption="HEURISTIC" symmetry="true" timeDarts="false" traceOption="NONE" useStubbornReduction="true" useTarOption="false"/>
+  <k-bound bound="3"/>
+  <feature isGame="false" isTimed="true"/>
+</pnml>
